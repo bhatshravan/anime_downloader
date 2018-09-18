@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import sys
 import cfscrape
 import requests
 import json
