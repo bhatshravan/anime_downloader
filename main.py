@@ -26,6 +26,7 @@ def hello():
 		<title>Episode streamer</title>
 	</head>
 	<body>
+	<center>
 		0.Boruto<br/>
 		1.My hero<br/>
 		<br/>
@@ -34,7 +35,7 @@ def hello():
 			<input name="ep"><br/>
 			<input type="submit">
 		</form>
-	</body>
+	</center></body>
 </html>'''
 
 @app.route('/', methods=['POST'])
@@ -95,7 +96,16 @@ def prints(ll,ep):
 		video_mir3 = video_mir2.replace("<video-mirrors :mirrors='","").replace("'></video-mirrors>","")
 
 		data = json.loads(video_mir3)
+		stringy+='''	<!DOCTYPE html>
+<html>
+	<head>
+		<title>Episode streamer</title>
+	</head>
+	<body>
+	<center>'''
 		stringy+=url+"<br/><br/>"
+
+		found_rapid=0
 
 		for index,datas in enumerate(data):
 			embed_id= datas["embed_id"]
@@ -103,6 +113,10 @@ def prints(ll,ep):
 			quality = datas["quality"]
 			embed_prefix = str(datas["host"]["embed_prefix"])
 			embed_suffix = str(datas["host"]["embed_suffix"])
+
+			if(str(name)=="Rapidvideo"):
+				found_rapid=str(url2)
+
 			if embed_suffix=="None":
 				embed_suffix=""
 
@@ -113,6 +127,20 @@ def prints(ll,ep):
 			stringy+="<br/><a href='"+str(url2)+"'>"+str(url2)+"</a> "+str(index)+" "+str(name)+" "+str(quality)
 			print(url2,index,name,quality,"\n")
 	
+		if found_rapid!=0:
+			stringy+="<br/><br/>Rapid video source is:<br/>"
+			r = requests.get("https://www.rapidvideo.com/e/FT5OBW9GFR&q=720o")
+
+			soup = BeautifulSoup(r.content, 'html.parser')
+			video_mir1 = soup.find_all('source')
+
+			for data in video_mir1:
+				print("<a href='",data['src'],"'>",data['src'],"</a>   ",data['title'])
+				stringy+=("<a href='",data['src'],"'>",data['src'],"</a>   ",data['title'])
+
+
+		stringy+='''	</center></body>
+</html>'''
 	except Exception as e:
 		stringy="Exception"
 		print(e)
