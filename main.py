@@ -66,10 +66,9 @@ def prints(ll,ep):
 	
 	for inp in input_taken:
 		bobo+=1
-		print(inp)
-		print(already_parsed[bobo])
 		if str(url)==str(inp):
-			return already_parsed[bobo]
+			#return already_parsed[bobo]
+			print(url,"ParsedParsed",inp)
 			break
 	bobo=-1
 
