@@ -67,8 +67,8 @@ def prints(ll,ep):
 	for inp in input_taken:
 		bobo+=1
 		if str(url)==str(inp):
-			#return already_parsed[bobo]
-			print(url,"ParsedParsed",inp)
+			print("Already parsed")
+			return already_parsed[bobo]
 			break
 	bobo=-1
 
@@ -104,7 +104,7 @@ def prints(ll,ep):
 	<center>'''
 		stringy+=url+"<br/><br/>"
 
-		found_rapid=0
+		found_rapid=" "
 
 		for index,datas in enumerate(data):
 			embed_id= datas["embed_id"]
@@ -113,9 +113,7 @@ def prints(ll,ep):
 			embed_prefix = str(datas["host"]["embed_prefix"])
 			embed_suffix = str(datas["host"]["embed_suffix"])
 
-			if(str(name)=="Rapidvideo"):
-				found_rapid=str(url2)
-
+			
 			if embed_suffix=="None":
 				embed_suffix=""
 
@@ -125,10 +123,17 @@ def prints(ll,ep):
 
 			stringy+="<br/><a href='"+str(url2)+"'>"+str(url2)+"</a> "+str(index)+" "+str(name)+" "+str(quality)
 			print(url2,index,name,quality,"\n")
+
+			if(str(name)=="Rapidvideo"):
+				found_rapid=str(url2)
+
 	
-		if found_rapid!=0:
+		if found_rapid!=" ":
 			stringy+="<br/><br/>Rapid video source is:<br/>"
-			r = requests.get("https://www.rapidvideo.com/e/FT5OBW9GFR&q=720o")
+			print(found_rapid)
+			found_rapid+="&q=720o"
+			print(found_rapid)
+			r = requests.get(found_rapid)
 
 			soup = BeautifulSoup(r.content, 'html.parser')
 			video_mir1 = soup.find_all('source')
