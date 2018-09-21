@@ -5,7 +5,7 @@ import requests
 import json
 from flask import Flask, request, render_template
 
-urls = ["https://www.masterani.me/anime/watch/2514-boruto-naruto-next-generations/","https://www.masterani.me/anime/watch/2816-boku-no-hero-academia-3rd-season"]
+urls = ["https://www.masterani.me/anime/watch/2514-boruto-naruto-next-generations/","https://www.masterani.me/anime/watch/2816-boku-no-hero-academia-3rd-season/"]
 names = ["0. Boruto", "1. My hero"]
 app = Flask(__name__)
 
@@ -136,7 +136,7 @@ def prints(ll,ep):
 
 			for data in video_mir1:
 				print("<a href='",data['src'],"'>",data['src'],"</a>   ",data['title'])
-				stringy+=("<a href='",data['src'],"'>",data['src'],"</a>   ",data['title'])
+				stringy+=("<a href='"+str(data['src'])+"'>"+str(data['src'])+"</a>   "+str(data['title'])+"<br/><br/>")
 
 
 		stringy+='''	</center></body>
