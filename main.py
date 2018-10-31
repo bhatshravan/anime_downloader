@@ -5,7 +5,7 @@ import requests
 import json
 from flask import Flask, request, render_template
 
-urls = ["https://www.masterani.me/anime/watch/2514-boruto-naruto-next-generations/","https://www.masterani.me/anime/watch/2816-boku-no-hero-academia-3rd-season/","https://www.masterani.me/anime/info/27-fairy-tail-2014"]
+urls = ["https://www.masterani.me/anime/watch/2514-boruto-naruto-next-generations/","https://www.masterani.me/anime/watch/2816-boku-no-hero-academia-3rd-season/","https://www.masterani.me/anime/watch/27-fairy-tail-2014/"]
 names = ["0. Boruto", "1. My hero","2. Fairy tail"]
 app = Flask(__name__)
 
