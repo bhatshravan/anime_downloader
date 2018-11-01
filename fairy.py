@@ -31,8 +31,6 @@ def my_form_post():
 
 def prints(ep):
 
-	#for index,datas in enumerate(names):
-	#	print(datas)
 	global input_taken
 	global already_parsed
 
@@ -40,7 +38,7 @@ def prints(ep):
 	
 	bobo=-1
 	url = str(fairy[len(fairy)-ep])
-
+	
 	
 	for inp in input_taken:
 		bobo+=1
@@ -60,57 +58,55 @@ def prints(ep):
 
 	
 	try:
+		found_rapid = kiss(url)
 
-		scraper = cfscrape.create_scraper()
-		content1 = scraper.get(url).content
-		content = (content1).decode("utf-8")
-		
-		soup = BeautifulSoup(content, 'html.parser')
-		video_mir1 = soup.find('https://www.rapidvideo.com/e/')
-		
-		stringy+=url+"<br/><br/>"
+		stringy+="<br/><br/>Rapid video source is:<br/>"
+		print(found_rapid)
+		found_rapid+="&q=720o"
+		print(found_rapid)
+		r = requests.get(found_rapid)
 
-		found_rapid=" "
+		soup = BeautifulSoup(r.content, 'html.parser')
+		video_mir1 = soup.find_all('source')
 
-			if(str(name)=="Rapidvideo"):
-				found_rapid=str(url2)
+		for data in video_mir1:
+			print(data['src'],"-> ",data['title'])
+			stringy+=(data['src']+"-> "+data['title'])
 
-			print(found_rapid)
+		already_parsed.append(stringy)
 
-
-		if found_rapid!=" ":
-			stringy+="<br/><br/>Rapid video source is:<br/>"
-			found_rapid+="&q=720o"
-			print("Rapid source = ",found_rapid)
-			
-			r = requests.get(found_rapid)
-
-			soup = BeautifulSoup(r.content, 'html.parser')
-			video_mir1 = soup.find_all('source')
-
-			for data in video_mir1:
-				print(data['src']," , ",data['title'])
-
-				stringy+=("<a href='"+str(data['src'])+"'>"+str(data['src'])+"</a>   "+str(data['title'])+"<br/><br/>")
-
-		else:
-			print("no parid boyes")
-		
-
-
-		stringy+='''h'''
 	except Exception as e:
 		stringy="Exception"
 		print(e)
-
-	already_parsed.append(stringy)
 
 
 	if stringy=="":
 		stringy="No found"
 
+		
+
+		
+def kiss(url):
 	
+	print("Started query")
+
+	scraper = cfscrape.create_scraper()
+	content1 = scraper.get(url).content
+	content = (content1).decode("utf-8")
 	
+	#print(content1)
+	
+	soup = BeautifulSoup(content, 'html.parser')
+	#video_mir1 =soup.find("iframe", {"id": "my_video_1"})
+
+
+	#print(video_mir1)
+	
+	s1 = content1.split(("; border: 0px;\" src=\"").encode())
+	s2 = s1[1].split(("\" allowfullscreen=\"true").encode())
+	
+	s3 = s2[0].decode("utf-8")
+	return (str(s3))
 
 if __name__ == '__main__':
 	my_form_post()
