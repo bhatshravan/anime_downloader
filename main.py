@@ -221,7 +221,7 @@ def prints_kiss(ep):
 		already_parsed.append(stringy)
 
 	except Exception as e:
-		stringy="Exception"
+		stringy="Exception: "+str(e)
 		print(e)
 
 
