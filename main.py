@@ -77,7 +77,6 @@ def prints(ll,ep):
 			break
 	bobo=-1
 
-	input_taken.append(url)
 
 	print(url,"\nQuering results:\n")
 		
@@ -154,6 +153,7 @@ def prints(ll,ep):
 		stringy="Exception"
 		print(e)
 
+	input_taken.append(url)
 	already_parsed.append(stringy)
 
 
@@ -182,7 +182,6 @@ def prints_kiss(ep):
 			break
 	bobo=-1
 
-	input_taken.append(url)
 
 	print(url,"\nQuering results:\n")
 		
@@ -218,6 +217,7 @@ def prints_kiss(ep):
 
 		stringy+='''	</center></body></html>'''
 
+		input_taken.append(url)
 		already_parsed.append(stringy)
 
 	except Exception as e:
